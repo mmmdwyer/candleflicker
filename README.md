@@ -1,4 +1,5 @@
 # Candle Flicker
+A number of Arduino+NeoPixel+ATTINY85 based blinky projects
 
 ## Hardware
 The core hardware is a Digispark Mini clone -- the typically-blue, six pin ATTINY85-based Arduino-like development platform with a microusb socket. You could probably run this on almost any AVR Arduino-like platform, though.
@@ -8,11 +9,14 @@ A single NeoPixel RGB LED is connected to the board at +5V, P0, and GND.
 A NO momentary switch is optionally placed between 5V and P2, with a 10k resistor going from P2 to GND.
 
 ## Software
-Two Arduino sketches are provided.
+Numerous Arduino sketches are provided.
 
 **simplecandleflicker** is a super-simple version that doesn't use the button. The base color is hard-coded.
 
 **candleflicker-button** allows you to change the color by holding down the button until it is the desired color. That's saved to EEPROM so that the candle will remain that color even if the power is interrupted.
+
+**pumpkinlights** uses a string of 6 neopixels. The first two are throbbing red LEDs meant for eyes, while the remaining four are a random candle-like flicker. This version uses a better millis-based timing than the naive delay-timers of the others. It also skips some pointless bounds checking. (128-50 will never be less than zero.)
+
 
 ### Theory of operation
 The candle sits in a tight loop, with a base color -- typically at 50% brightness. At the top of every loop, three random values from 0 to 50 are subtracted from each of the red, green, and blue channels. The candle then sleeps for a random internval before going back to the top of the loop.
